@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Dashboard from './routes/index';
+import './styles.scss';
 
 ReactDOM.render(
   <React.StrictMode>
