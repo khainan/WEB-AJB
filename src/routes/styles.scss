@@ -83,32 +83,6 @@
   }
 }
 
-.dashboard-pagination {
-  height: 60px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 24px;
-
-  button {
-    height: 50px;
-    background-color: unset;
-    font-weight: 600;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    color: #000;
-
-    &:first-child {
-      margin-right: 24px;
-    }
-
-    &.disabled {
-      color: #adadad;
-    }
-  }
-}
 
 @media screen and (min-width: 200px) and (max-width: 900px) {
   .dashboard-content {

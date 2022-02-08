@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import classNames from 'classnames';
 import axios from 'axios';
 
 // components
@@ -12,67 +11,106 @@ import './styles.scss';
 
 export default function Dashboard() {
   const [users, setListUsers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState({
+    results: 10,
+    search: '',
+    page: 0,
+    gender: 'all',
+  });
 
-  const menus = [
-    { title: 'Home', key: "home" },
-  ];
+  const menus = [{ title: 'Home', key: 'home' }];
 
   const gender = [
-    {title: "Female", value: "female"},
-    {title: "Male", value: "male"},
-  ]
+    { title: 'Female', value: 'female' },
+    { title: 'Male', value: 'male' },
+  ];
 
+  const tableConfig = {
+    no: {
+      propData: {
+        number: 'number',
+      },
+      render: (prop) => prop.number,
+    },
+    name: {
+      propData: {
+        name: 'name',
+      },
+      render: (prop) => prop.name,
+    },
+    email: {
+      propData: {
+        email: 'email',
+      },
+      render: (prop) => prop.email,
+    },
+    gender: {
+      propData: {
+        gender: 'gender',
+      },
+      render: (prop) => prop.gender,
+    },
+    registered: {
+      propData: {
+        registered: 'registered',
+      },
+      render: (prop) => prop.registered,
+    },
+  };
+
+  const parseQuery = (subject) => {
+    const results = {};
+    const parser = /[^&?]+/g;
+    let match = parser.exec(subject);
+
+    while (match !== null) {
+      const parts = match[0].split('=');
+
+      results[parts[0]] = parts[1];
+      match = parser.exec(subject);
+    }
+
+    return results;
+  };
 
   const getListUsers = async () => {
     await axios
-      .get('https://randomuser.me/api/?results=5')
+      .get('https://randomuser.me/api/?results=10')
       .then((res) => {
         const { data } = res;
         const { results } = data || [];
-        setListUsers(results);
+        handleSetData(results);
       })
       .catch((e) => console.log(e));
   };
 
-  const nextPage = () => {
-    if (currentPage < 5) {
-      setCurrentPage((page) => page + 1);
-    }
+  const handleSetData = (data) => {
+    const newData = [];
+
+    data.map((val, index) => {
+      let newUserData = {
+        number: `${index < 9 ? filter.page : ''}${index + 1}`,
+        name: `${val.name.title} ${val.name.first} ${val.name.last}`,
+        email: val.email,
+        gender: val.gender,
+        registered: val.registered.date,
+      };
+
+      newData.push(newUserData);
+    });
+
+    setListUsers(newData);
   };
 
-  const previousPage = () => {
-    if (currentPage) {
-      setCurrentPage((page) => page - 1);
-    }
-  };
+  const handleSetFilter = (key, value) => {
+    const newFilter = { ...filter, [key]: value };
 
-  const searchUser = async () => {
-    await axios
-      .get(`https://randomuser.me/api/?results=1&name="${search}"`)
-      .then((res) => {
-        const { data } = res;
-        const { results } = data || [];
-        setListUsers(results);
-      })
-      .catch((e) => console.log(e));
-  };
-
-  const handleSearch = (event) => {
-    const { code, target } = event || {};
-    const { value } = target || {};
-
-    setSearch(value);
-
-    if (code === 'Enter' && search) {
-      searchUser();
-    }
+    setFilter(newFilter);
   };
 
   useEffect(() => {
     getListUsers();
-  }, [currentPage]);
+  }, []);
 
   return (
     <div id="dashboard" className="dashboard">
@@ -85,35 +123,20 @@ export default function Dashboard() {
           </div>
           <div className="dashboard-content-header-action">
             <div className="search-input">
-              <div className="search-icon" onClick={searchUser} />
+              <div className="search-icon" />
               <input
                 placeholder="Search..."
-                value={search}
-                onKeyPress={handleSearch}
+                value={filter.search}
+                onChange={(e) => handleSetFilter('search', e.target.value)}
               />
             </div>
             <Dropdown listMenus={gender} />
+            <button className="button">Search</button>
             <button className="button">Reset Filter</button>
           </div>
         </div>
         <div className="dashboard-content-body">
-          <Table />
-        </div>
-        <div className="dashboard-pagination">
-          <button
-            disabled={!currentPage}
-            className={classNames({ disabled: !currentPage })}
-            onClick={previousPage}
-          >
-            {'<'} Previous Page
-          </button>
-          <button
-            disabled={currentPage > 5}
-            className={classNames({ disabled: currentPage > 4 })}
-            onClick={nextPage}
-          >
-            Next Page {'>'}
-          </button>
+          <Table config={tableConfig} data={users} />
         </div>
       </div>
     </div>
