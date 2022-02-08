@@ -35,6 +35,10 @@ export default function Table({
     }
   };
 
+  const handleClickSort = (sortBy, sortOrder) => {
+    onClickSort(sortBy, sortOrder);
+  };
+
   return (
     <>
       <div className="dashboard-table">
@@ -49,11 +53,11 @@ export default function Table({
                       <div className="sort-table">
                         <div
                           className="sort-up"
-                          onClick={() => onClickSort('asc')}
+                          onClick={() => handleClickSort(headKey, 'asc')}
                         />
                         <div
                           className="sort-down"
-                          onClick={() => onClickSort('desc')}
+                          onClick={() => handleClickSort(headKey, 'desc')}
                         />
                       </div>
                     )}

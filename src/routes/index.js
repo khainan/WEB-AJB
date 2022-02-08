@@ -39,18 +39,21 @@ export default function Dashboard() {
       propData: {
         email: 'email',
       },
+      useSort: true,
       render: (prop) => prop.email,
     },
     gender: {
       propData: {
         gender: 'gender',
       },
+      useSort: true,
       render: (prop) => prop.gender,
     },
     registered: {
       propData: {
         registered: 'registered',
       },
+      useSort: true,
       render: (prop) => prop.registered,
     },
   };
@@ -113,9 +116,19 @@ export default function Dashboard() {
     getListUsers(newFilter);
   };
 
+  const handleSort = (sortBy, sortOrder) => {
+    const newFilter = {
+      ...filter,
+      sortBy,
+      sortOrder
+    };
+
+    getListUsers(newFilter);
+  }
+
   useEffect(() => {
     getListUsers(filter);
-  }, [filter.page, filter.sort]);
+  }, [filter.page]);
 
   return (
     <div id="dashboard" className="dashboard">
@@ -154,7 +167,7 @@ export default function Dashboard() {
             data={users}
             filterData={filter}
             onChangePagination={(page) => handleSetFilter('page', page)}
-            onClickSort={(sort) => handleSetFilter('sort', sort)}
+            onClickSort={(sortBy, sortOrder) => handleSort(sortBy, sortOrder)}
           />
         </div>
       </div>

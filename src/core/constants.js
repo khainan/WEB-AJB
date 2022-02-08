@@ -3,7 +3,6 @@ export const DEFAULT_FILTER = {
   search: '',
   page: 1,
   gender: 'all',
-  sort: 'asc',
 };
 
 export const GENDER = [
