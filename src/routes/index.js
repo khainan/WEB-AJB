@@ -5,6 +5,7 @@ import axios from 'axios';
 // components
 import Dropdown from '../components/Dropdown';
 import HeaderSidebar from '../components/HeaderSidebar';
+import Table from '../components/Table';
 
 // styles
 import './styles.scss';
@@ -96,6 +97,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="dashboard-content-body">
+          <Table />
         </div>
         <div className="dashboard-pagination">
           <button
