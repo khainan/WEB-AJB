@@ -90,12 +90,16 @@ export default function Dashboard() {
     const newData = [];
 
     data.map((val, index) => {
+      const { name, email, gender, registered } = val || {};
+      const number =
+        index + 1 === 10 ? `${filter.page + 1}0` : `${filter.page}${index + 1}`;
+
       let newUserData = {
-        number: `${index < 9 ? filter.page : ''}${index + 1}`,
-        name: `${val.name.title} ${val.name.first} ${val.name.last}`,
-        email: val.email,
-        gender: startCase(val.gender),
-        registered: moment(val.registered.date).format('DD-MM-YYYY HH:MM'),
+        number,
+        name: `${name.title} ${name.first} ${name.last}`,
+        email,
+        gender: startCase(gender),
+        registered: moment(registered.date).format('DD-MM-YYYY HH:MM'),
       };
 
       newData.push(newUserData);
@@ -112,7 +116,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     getListUsers();
-  }, []);
+  }, [filter]);
 
   return (
     <div id="dashboard" className="dashboard">
@@ -138,7 +142,12 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="dashboard-content-body">
-          <Table config={tableConfig} data={users} />
+          <Table
+            config={tableConfig}
+            data={users}
+            filterData={filter}
+            onChangePagination={(page) => handleSetFilter('page', page)}
+          />
         </div>
       </div>
     </div>

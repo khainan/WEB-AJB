@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import map from 'lodash.map';
 import forEach from 'lodash.foreach';
 import classNames from 'classnames';
 
 import './styles.scss';
 
-export default function Table({ config, filterData, data }) {
+export default function Table({
+  config,
+  filterData,
+  data,
+  onChangePagination,
+}) {
   const { page } = filterData || {};
   const [currentPage, setCurrentPage] = useState(page || 0);
 
@@ -30,6 +35,10 @@ export default function Table({ config, filterData, data }) {
     }
   };
 
+  useEffect(() => {
+    onChangePagination(currentPage);
+  }, [currentPage])
+
   return (
     <>
       <div className="dashboard-table">
@@ -46,7 +55,7 @@ export default function Table({ config, filterData, data }) {
           <tbody>
             {map(data, (dataValue, index) => {
               return (
-                <tr data-tr={index}>
+                <tr key={`body-tr-${index}`} data-tr={index}>
                   {map(config, (config, bodyKey) => (
                     <td key={`td-${bodyKey}`} data-td={bodyKey}>
                       <div className="td-content">
