@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import startCase from 'startcase';
 import axios from 'axios';
+import moment from 'moment';
 
 // components
 import Dropdown from '../components/Dropdown';
@@ -92,8 +94,8 @@ export default function Dashboard() {
         number: `${index < 9 ? filter.page : ''}${index + 1}`,
         name: `${val.name.title} ${val.name.first} ${val.name.last}`,
         email: val.email,
-        gender: val.gender,
-        registered: val.registered.date,
+        gender: startCase(val.gender),
+        registered: moment(val.registered.date).format('DD-MM-YYYY HH:MM'),
       };
 
       newData.push(newUserData);
