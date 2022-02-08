@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import map from 'lodash.map';
 import forEach from 'lodash.foreach';
 import classNames from 'classnames';
