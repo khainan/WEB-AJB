@@ -30,7 +30,7 @@ export default function Table({
   };
 
   const previousPage = () => {
-    if (page) {
+    if (page > 1) {
       onChangePagination(page - 1);
     }
   };
@@ -86,7 +86,7 @@ export default function Table({
       <div className="dashboard-pagination">
         <button
           disabled={!page}
-          className={classNames({ disabled: !page })}
+          className={classNames({ disabled: page === 1 })}
           onClick={previousPage}
         >
           {'<'} Previous Page

@@ -17,7 +17,7 @@ export default function Dashboard() {
   const [filter, setFilter] = useState({
     results: 10,
     search: '',
-    page: 0,
+    page: 1,
     gender: 'all',
     sort: 'asc',
   });
@@ -100,7 +100,11 @@ export default function Dashboard() {
     data.map((val, index) => {
       const { name, email, gender, registered } = val || {};
       const number =
-        index + 1 === 10 ? `${filter.page + 1}0` : `${filter.page}${index + 1}`;
+        index + 1 === 10
+          ? `${filter.page}0`
+          : filter.page > 1
+          ? `${filter.page - 1}${index + 1}`
+          : `${index + 1}`;
 
       let newUserData = {
         number,
@@ -126,7 +130,7 @@ export default function Dashboard() {
     const defaultFilter = {
       results: 10,
       search: '',
-      page: 0,
+      page: 1,
       gender: 'all',
       sort: 'asc',
     };
@@ -138,7 +142,7 @@ export default function Dashboard() {
   const handleClickSearch = () => {
     const newFilter = {
       ...filter,
-      page: 0,
+      page: 1,
     };
 
     setFilter(newFilter);
