@@ -1,0 +1,148 @@
+.dashboard {
+  width: 100%;
+  min-width: 300px;
+  min-height: 100vh;
+  padding-top: 64px;
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard-content {
+  width: 100%;
+  background-color: #eee;
+  padding: 24px;
+  overflow: hidden;
+  overflow-x: auto;
+  margin-left: 280px;
+
+  &-header,
+  &-header-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-header {
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 4px;
+
+    h1 {
+      color: #e21717;
+    }
+
+    &-action {
+      min-width: 350px;
+    }
+  }
+
+  &-body {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+}
+
+.button {
+  width: 150px;
+  height: 40px;
+  background-color: #f33333;
+  color: #fff;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-input {
+  position: relative;
+
+  > input {
+    height: 22px;
+    width: 150px;
+    padding: 8px;
+    padding-left: 32px;
+    position: relative;
+    border: 1px solid #eee;
+    border-radius: 4px;
+
+    &:focus {
+      outline: none !important;
+      border: 1px solid #f33333;
+      caret-color: #f33333;
+    }
+  }
+
+  .search-icon {
+    height: 20px;
+    width: 20px;
+    background: #eee;
+    position: absolute;
+    left: 8px;
+    top: 10px;
+    z-index: 1;
+  }
+}
+
+.dashboard-pagination {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+
+  button {
+    height: 50px;
+    background-color: unset;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: #000;
+
+    &:first-child {
+      margin-right: 24px;
+    }
+
+    &.disabled {
+      color: #adadad;
+    }
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 900px) {
+  .dashboard-content {
+    margin-left: 0px;
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 680px) {
+  .dashboard-content {
+    &-header,
+    &-header-action {
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: unset;
+      width: -webkit-fill-available;
+    }
+
+    .button, .search-input {
+      margin-top: 16px;
+      width: 100%;
+
+      input {
+        width: calc(100% - 42px);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 450px) {
+  .dashboard-content-body {
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
