@@ -12,7 +12,7 @@ export default function Table({
   onChangePagination,
 }) {
   const { page } = filterData || {};
-  const [currentPage, setCurrentPage] = useState(page || 0);
+  const [currentPage, setCurrentPage] = useState(page);
 
   const renderData = (data, config) => {
     const newConfig = {};
@@ -75,15 +75,15 @@ export default function Table({
       </div>
       <div className="dashboard-pagination">
         <button
-          disabled={!currentPage}
-          className={classNames({ disabled: !currentPage })}
+          disabled={!page}
+          className={classNames({ disabled: !page })}
           onClick={previousPage}
         >
           {'<'} Previous Page
         </button>
         <button
-          disabled={currentPage > 5}
-          className={classNames({ disabled: currentPage > 4 })}
+          disabled={page > 5}
+          className={classNames({ disabled: page > 4 })}
           onClick={nextPage}
         >
           Next Page {'>'}

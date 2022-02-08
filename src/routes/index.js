@@ -80,9 +80,9 @@ export default function Dashboard() {
     return createQueryVar.filter(Boolean).join('&');
   };
 
-  const getListUsers = async () => {
+  const getListUsers = async (filterValue) => {
     await axios
-      .get(`https://randomuser.me/api/?${stringifyQuery(filter)}`)
+      .get(`https://randomuser.me/api/?${stringifyQuery(filterValue)}`)
       .then((res) => {
         const { data } = res;
         const { results } = data || [];
@@ -119,7 +119,7 @@ export default function Dashboard() {
     setFilter(newFilter);
   };
 
-  const handleResetFilter = () => {
+  const handleClickResetFilter = () => {
     const defaultFilter = {
       results: 10,
       search: '',
@@ -128,10 +128,21 @@ export default function Dashboard() {
     };
 
     setFilter(defaultFilter);
+    getListUsers(defaultFilter);
+  };
+
+  const handleClickSearch = () => {
+    const newFilter = {
+      ...filter,
+      page: 0,
+    };
+
+    setFilter(newFilter);
+    getListUsers(newFilter);
   };
 
   useEffect(() => {
-    getListUsers();
+    getListUsers(filter);
   }, [filter.page]);
 
   return (
@@ -157,10 +168,10 @@ export default function Dashboard() {
               selectedValue={filter.gender}
               onSelect={(selected) => handleSetFilter('gender', selected)}
             />
-            <button className="button" onClick={getListUsers}>
+            <button className="button" onClick={handleClickSearch}>
               Search
             </button>
-            <button className="button" onClick={handleResetFilter}>
+            <button className="button" onClick={handleClickResetFilter}>
               Reset Filter
             </button>
           </div>
