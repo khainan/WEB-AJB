@@ -31,9 +31,18 @@ export default function Dashboard() {
     name: {
       propData: {
         name: 'name',
+        picture: 'picture',
       },
       useSort: true,
-      render: (prop) => prop.name,
+      render: (prop) => {
+        const { name, picture } = prop || {};
+
+        return (
+          <div className="user-info">
+            <img src={picture} /> {name}
+          </div>
+        );
+      },
     },
     email: {
       propData: {
@@ -73,7 +82,7 @@ export default function Dashboard() {
     const newData = [];
 
     data.map((val, index) => {
-      const { name, email, gender, registered } = val || {};
+      const { name, email, gender, registered, picture } = val || {};
       const number =
         index + 1 === 10
           ? `${filter.page}0`
@@ -87,6 +96,7 @@ export default function Dashboard() {
         email,
         gender: startCase(gender),
         registered: moment(registered.date).format('DD-MM-YYYY HH:MM'),
+        picture: picture.thumbnail,
       };
 
       newData.push(newUserData);
@@ -120,11 +130,11 @@ export default function Dashboard() {
     const newFilter = {
       ...filter,
       sortBy,
-      sortOrder
+      sortOrder,
     };
 
     getListUsers(newFilter);
-  }
+  };
 
   useEffect(() => {
     getListUsers(filter);
