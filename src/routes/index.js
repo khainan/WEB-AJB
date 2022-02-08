@@ -23,6 +23,7 @@ export default function Dashboard() {
   const menus = [{ title: 'Home', key: 'home' }];
 
   const gender = [
+    { title: 'All', value: 'all' },
     { title: 'Female', value: 'female' },
     { title: 'Male', value: 'male' },
   ];
@@ -60,24 +61,28 @@ export default function Dashboard() {
     },
   };
 
-  const parseQuery = (subject) => {
-    const results = {};
-    const parser = /[^&?]+/g;
-    let match = parser.exec(subject);
-
-    while (match !== null) {
-      const parts = match[0].split('=');
-
-      results[parts[0]] = parts[1];
-      match = parser.exec(subject);
+  const stringifyQuery = (object) => {
+    if (!object) {
+      return '';
     }
 
-    return results;
+    const listObj = Object.keys(object);
+    const createQueryVar = listObj.map((a) => {
+      if (Array.isArray(object[a])) {
+        const arrayToString = object[a].map((value) => `"${value}"`).toString();
+
+        return `${a}=[${arrayToString}]`;
+      }
+
+      return object[a] ? `${a}=${object[a]}` : '';
+    });
+
+    return createQueryVar.filter(Boolean).join('&');
   };
 
   const getListUsers = async () => {
     await axios
-      .get('https://randomuser.me/api/?results=10')
+      .get(`https://randomuser.me/api/?${stringifyQuery(filter)}`)
       .then((res) => {
         const { data } = res;
         const { results } = data || [];
@@ -114,9 +119,20 @@ export default function Dashboard() {
     setFilter(newFilter);
   };
 
+  const handleResetFilter = () => {
+    const defaultFilter = {
+      results: 10,
+      search: '',
+      page: 0,
+      gender: 'all',
+    };
+
+    setFilter(defaultFilter);
+  };
+
   useEffect(() => {
     getListUsers();
-  }, [filter]);
+  }, [filter.page]);
 
   return (
     <div id="dashboard" className="dashboard">
@@ -136,9 +152,17 @@ export default function Dashboard() {
                 onChange={(e) => handleSetFilter('search', e.target.value)}
               />
             </div>
-            <Dropdown listMenus={gender} />
-            <button className="button">Search</button>
-            <button className="button">Reset Filter</button>
+            <Dropdown
+              listMenus={gender}
+              selectedValue={filter.gender}
+              onSelect={(selected) => handleSetFilter('gender', selected)}
+            />
+            <button className="button" onClick={getListUsers}>
+              Search
+            </button>
+            <button className="button" onClick={handleResetFilter}>
+              Reset Filter
+            </button>
           </div>
         </div>
         <div className="dashboard-content-body">
