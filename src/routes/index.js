@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import axios from 'axios';
 
 // components
+import Dropdown from '../components/Dropdown';
 import HeaderSidebar from '../components/HeaderSidebar';
 
 // styles
@@ -16,6 +17,11 @@ export default function Dashboard() {
   const menus = [
     { title: 'Home', key: "home" },
   ];
+
+  const gender = [
+    {title: "Female", value: "female"},
+    {title: "Male", value: "male"},
+  ]
 
 
   const getListUsers = async () => {
@@ -85,6 +91,7 @@ export default function Dashboard() {
                 onKeyPress={handleSearch}
               />
             </div>
+            <Dropdown listMenus={gender} />
           </div>
         </div>
         <div className="dashboard-content-body">
