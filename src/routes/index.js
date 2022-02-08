@@ -92,6 +92,7 @@ export default function Dashboard() {
               />
             </div>
             <Dropdown listMenus={gender} />
+            <button className="button">Reset Filter</button>
           </div>
         </div>
         <div className="dashboard-content-body">

@@ -1,18 +1,20 @@
 .dropdown-select {
   position: relative;
+  min-width: 150px;
+  width: 100%;
 
   &-box {
-    display: table-cell;
+    display: flex;
+    align-items: center;
     background-color: #fff;
     height: 40px;
     max-height: 40px;
-    width: 150px;
+    width: 100%;
     padding: 8px;
     border: 1px solid #eee;
     box-sizing: border-box;
     border-radius: 4px;
     font-size: 14px;
-    vertical-align: middle;
     text-transform: capitalize;
     cursor: pointer;
 
@@ -25,7 +27,8 @@
     cursor: pointer;
     background-color: #fff;
     max-height: 400px;
-    width: 150px;
+    min-width: 150px;
+    width: 100%;
     margin-top: 4px;
     position: absolute;
     left: 0px;
