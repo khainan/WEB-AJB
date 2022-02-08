@@ -9,7 +9,6 @@ export default function Dropdown({
   onSelect = () => {},
   selectedValue,
 }) {
-  const [selected, setSelected] = useState(selectedValue || 'Select filter');
   const [open, setOpen] = useState(false);
 
   const ref = useRef();
@@ -20,7 +19,6 @@ export default function Dropdown({
 
   const handleSelect = (value) => {
     onSelect(value);
-    setSelected(value);
     setOpen(false);
   };
 
@@ -44,7 +42,7 @@ export default function Dropdown({
         className={classNames('dropdown-select-box', { open: open })}
         onClick={handleOpenDropdown}
       >
-        {selected}
+        {selectedValue}
       </div>
       {open && (
         <div className="dropdown-select-list">
