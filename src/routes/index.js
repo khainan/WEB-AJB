@@ -13,11 +13,13 @@ import './styles.scss';
 
 export default function Dashboard() {
   const [users, setListUsers] = useState([]);
+
   const [filter, setFilter] = useState({
     results: 10,
     search: '',
     page: 0,
     gender: 'all',
+    sort: 'asc',
   });
 
   const menus = [{ title: 'Home', key: 'home' }];
@@ -39,6 +41,7 @@ export default function Dashboard() {
       propData: {
         name: 'name',
       },
+      useSort: true,
       render: (prop) => prop.name,
     },
     email: {
@@ -101,7 +104,7 @@ export default function Dashboard() {
 
       let newUserData = {
         number,
-        name: `${name.title} ${name.first} ${name.last}`,
+        name: `${name.first} ${name.last}`,
         email,
         gender: startCase(gender),
         registered: moment(registered.date).format('DD-MM-YYYY HH:MM'),
@@ -125,6 +128,7 @@ export default function Dashboard() {
       search: '',
       page: 0,
       gender: 'all',
+      sort: 'asc',
     };
 
     setFilter(defaultFilter);
@@ -143,7 +147,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     getListUsers(filter);
-  }, [filter.page]);
+  }, [filter.page, filter.sort]);
 
   return (
     <div id="dashboard" className="dashboard">
@@ -182,6 +186,7 @@ export default function Dashboard() {
             data={users}
             filterData={filter}
             onChangePagination={(page) => handleSetFilter('page', page)}
+            onClickSort={(sort) => handleSetFilter('sort', sort)}
           />
         </div>
       </div>

@@ -8,6 +8,38 @@
     width: 100%;
   }
 
+  .sort-table {
+    position: absolute;
+    right: 12px;
+  }
+
+  .sort-up {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 8px solid #000;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  .sort-down {
+    margin-top: 4px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 8px solid #000;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
   thead {
     background-color: #f5f6fa;
     font-family: 600;
@@ -25,6 +57,7 @@
 
     .th-content,
     .td-content {
+      position: relative;
       padding: 20px;
       display: flex;
       flex-direction: column;

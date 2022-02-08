@@ -10,6 +10,7 @@ export default function Table({
   filterData,
   data,
   onChangePagination,
+  onClickSort,
 }) {
   const { page } = filterData || {};
 
@@ -40,9 +41,23 @@ export default function Table({
         <table>
           <thead>
             <tr>
-              {map(config, ({}, headKey) => (
+              {map(config, (configValue, headKey) => (
                 <th key={`th-${headKey}`}>
-                  <div className="th-content">{headKey}</div>
+                  <div className="th-content">
+                    {headKey}{' '}
+                    {configValue.useSort && (
+                      <div className="sort-table">
+                        <div
+                          className="sort-up"
+                          onClick={() => onClickSort('asc')}
+                        />
+                        <div
+                          className="sort-down"
+                          onClick={() => onClickSort('desc')}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </th>
               ))}
             </tr>
