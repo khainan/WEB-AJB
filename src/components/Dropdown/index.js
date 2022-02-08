@@ -4,8 +4,12 @@ import classNames from 'classnames';
 // styles
 import './styles.scss';
 
-export default function Dropdown({ listMenus = [], onSelect = () => {} }) {
-  const [selected, setSelected] = useState('Select filter');
+export default function Dropdown({
+  listMenus = [],
+  onSelect = () => {},
+  selectedValue,
+}) {
+  const [selected, setSelected] = useState(selectedValue || 'Select filter');
   const [open, setOpen] = useState(false);
 
   const ref = useRef();
@@ -14,9 +18,9 @@ export default function Dropdown({ listMenus = [], onSelect = () => {} }) {
     setOpen((prevState) => !prevState);
   };
 
-  const handleSelect = (selectedValue) => {
-    onSelect(selectedValue);
-    setSelected(selectedValue);
+  const handleSelect = (value) => {
+    onSelect(value);
+    setSelected(value);
     setOpen(false);
   };
 
