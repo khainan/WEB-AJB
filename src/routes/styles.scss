@@ -2,7 +2,7 @@
   width: 100%;
   min-width: 300px;
   min-height: 100vh;
-  padding-top: 64px;
+  padding-top: 50px;
   display: flex;
   flex-direction: row;
 }
@@ -28,7 +28,7 @@
     border-radius: 4px;
 
     h1 {
-      color: #e21717;
+      color: #3a83f6;
     }
 
     &-action {
@@ -70,8 +70,8 @@
 
     &:focus {
       outline: none !important;
-      border: 1px solid #f33333;
-      caret-color: #f33333;
+      border: 1px solid #3a83f6;
+      caret-color: #3a83f6;
     }
   }
 

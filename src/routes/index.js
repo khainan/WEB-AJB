@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import axios from 'axios';
 
+// components
+import HeaderSidebar from '../components/HeaderSidebar';
+
 // styles
 import './styles.scss';
 
@@ -9,6 +12,11 @@ export default function Dashboard() {
   const [users, setListUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState('');
+
+  const menus = [
+    { title: 'Home', key: "home" },
+  ];
+
 
   const getListUsers = async () => {
     await axios
@@ -61,6 +69,7 @@ export default function Dashboard() {
 
   return (
     <div id="dashboard" className="dashboard">
+      <HeaderSidebar menus={menus} />
       <div className="dashboard-content">
         <div className="dashboard-content-header">
           <div className="dashboard-content-header-title">
