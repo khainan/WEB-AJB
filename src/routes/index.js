@@ -8,27 +8,18 @@ import Dropdown from '../components/Dropdown';
 import HeaderSidebar from '../components/HeaderSidebar';
 import Table from '../components/Table';
 
+// core
+import { stringifyQuery } from '../core/utils';
+import { DEFAULT_FILTER, GENDER } from '../core/constants';
+
 // styles
 import './styles.scss';
 
 export default function Dashboard() {
   const [users, setListUsers] = useState([]);
-
-  const [filter, setFilter] = useState({
-    results: 10,
-    search: '',
-    page: 1,
-    gender: 'all',
-    sort: 'asc',
-  });
+  const [filter, setFilter] = useState(DEFAULT_FILTER);
 
   const menus = [{ title: 'Home', key: 'home' }];
-
-  const gender = [
-    { title: 'All', value: 'all' },
-    { title: 'Female', value: 'female' },
-    { title: 'Male', value: 'male' },
-  ];
 
   const tableConfig = {
     no: {
@@ -62,25 +53,6 @@ export default function Dashboard() {
       },
       render: (prop) => prop.registered,
     },
-  };
-
-  const stringifyQuery = (object) => {
-    if (!object) {
-      return '';
-    }
-
-    const listObj = Object.keys(object);
-    const createQueryVar = listObj.map((a) => {
-      if (Array.isArray(object[a])) {
-        const arrayToString = object[a].map((value) => `"${value}"`).toString();
-
-        return `${a}=[${arrayToString}]`;
-      }
-
-      return object[a] ? `${a}=${object[a]}` : '';
-    });
-
-    return createQueryVar.filter(Boolean).join('&');
   };
 
   const getListUsers = async (filterValue) => {
@@ -127,16 +99,8 @@ export default function Dashboard() {
   };
 
   const handleClickResetFilter = () => {
-    const defaultFilter = {
-      results: 10,
-      search: '',
-      page: 1,
-      gender: 'all',
-      sort: 'asc',
-    };
-
-    setFilter(defaultFilter);
-    getListUsers(defaultFilter);
+    setFilter(DEFAULT_FILTER);
+    getListUsers(DEFAULT_FILTER);
   };
 
   const handleClickSearch = () => {
@@ -172,7 +136,7 @@ export default function Dashboard() {
               />
             </div>
             <Dropdown
-              listMenus={gender}
+              listMenus={GENDER}
               selectedValue={filter.gender}
               onSelect={(selected) => handleSetFilter('gender', selected)}
             />
