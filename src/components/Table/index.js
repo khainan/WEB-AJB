@@ -12,7 +12,6 @@ export default function Table({
   onChangePagination,
 }) {
   const { page } = filterData || {};
-  const [currentPage, setCurrentPage] = useState(page);
 
   const renderData = (data, config) => {
     const newConfig = {};
@@ -24,20 +23,16 @@ export default function Table({
   };
 
   const nextPage = () => {
-    if (currentPage < 5) {
-      setCurrentPage((page) => page + 1);
+    if (page < 5) {
+      onChangePagination(page + 1);
     }
   };
 
   const previousPage = () => {
-    if (currentPage) {
-      setCurrentPage((page) => page - 1);
+    if (page) {
+      onChangePagination(page - 1);
     }
   };
-
-  useEffect(() => {
-    onChangePagination(currentPage);
-  }, [currentPage])
 
   return (
     <>
