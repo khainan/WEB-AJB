@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 // icon
 import hamburgerIcon from './assets/hamburger-icon.png';
+import userIcon from './assets/user.png';
 
 // styles
 import './styles.scss';
@@ -39,13 +40,13 @@ export default function Header({ menus }) {
             alt=""
             onClick={handleOpenSidebar}
           />
-          <h1>Dashboard</h1>
+          <h1>D.U</h1>
         </div>
         <div className="dashboard-header-user">
           <p>
             Hello, <span>{'User Name'}</span>
           </p>
-          <div />
+          <img src={userIcon} />
         </div>
       </div>
       <div className={classNames('dashboard-sidebar', { open: open })}>
@@ -56,7 +57,7 @@ export default function Header({ menus }) {
             })}
             key={index}
           >
-            <div />
+            <img src={menu.icon} />
             <p>{menu.title}</p>
           </div>
         ))}

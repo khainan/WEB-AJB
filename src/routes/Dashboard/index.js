@@ -4,13 +4,17 @@ import axios from 'axios';
 import moment from 'moment';
 
 // components
-import Dropdown from '../components/Dropdown';
-import HeaderSidebar from '../components/HeaderSidebar';
-import Table from '../components/Table';
+import Dropdown from '../../components/Dropdown';
+import HeaderSidebar from '../../components/HeaderSidebar';
+import Table from '../../components/Table';
 
 // core
-import { stringifyQuery } from '../core/utils';
-import { DEFAULT_FILTER, GENDER } from '../core/constants';
+import { stringifyQuery } from '../../core/utils';
+import { DEFAULT_FILTER, GENDER } from '../../core/constants';
+
+// icon
+import homeIcon from './assets/home-icon.png';
+import searchIcon from './assets/search-icon.png';
 
 // styles
 import './styles.scss';
@@ -19,7 +23,7 @@ export default function Dashboard() {
   const [users, setListUsers] = useState([]);
   const [filter, setFilter] = useState(DEFAULT_FILTER);
 
-  const menus = [{ title: 'Home', key: 'home' }];
+  const menus = [{ title: 'Home', key: 'home', icon: homeIcon }];
 
   const tableConfig = {
     no: {
@@ -146,12 +150,12 @@ export default function Dashboard() {
       <div className="dashboard-content">
         <div className="dashboard-content-header">
           <div className="dashboard-content-header-title">
-            <h1>User Search</h1>
-            <p>Search someone.</p>
+            <h1>Dashboard User</h1>
+            <p>Search user with <strong>randomuser.me</strong> datas</p>
           </div>
           <div className="dashboard-content-header-action">
             <div className="search-input">
-              <div className="search-icon" />
+              <img src={searchIcon} className="search-icon" />
               <input
                 placeholder="Search..."
                 value={filter.search}

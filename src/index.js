@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dashboard from './routes/index';
+import Dashboard from './routes/Dashboard';
 import './styles.scss';
 
 ReactDOM.render(

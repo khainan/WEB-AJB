@@ -41,11 +41,10 @@
       }
     }
 
-    > div {
+    > img {
       width: 24px;
       height: 24px;
       border-radius: 100%;
-      border: 1px solid #000;
     }
   }
 }
@@ -79,10 +78,9 @@
       opacity: 0.8;
     }
 
-    > div {
+    > img {
       height: 24px;
       width: 24px;
-      background: #eee;
       margin-right: 8px;
     }
   }
@@ -105,11 +103,5 @@
       opacity: 1;
       width: 280px;
     }
-  }
-}
-
-@media screen and (min-width: 200px) and (max-width: 450px) {
-  .dashboard-header-user > p {
-    display: none;
   }
 }
