@@ -1,10 +1,17 @@
 .dashboard-table {
-  overflow-x: auto;
 
-  table {
+  .table-container {
+    position: relative;
     border-radius: 4px;
     box-shadow: 0 2px 14px 0 #dee2ee;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  table {
+    position: unset;
     border-style: hidden;
+    border-collapse: collapse;
     width: 100%;
   }
 

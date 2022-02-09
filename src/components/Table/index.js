@@ -42,50 +42,52 @@ export default function Table({
   return (
     <>
       <div className="dashboard-table">
-        <table>
-          <thead>
-            <tr>
-              {map(config, (configValue, headKey) => (
-                <th key={`th-${headKey}`}>
-                  <div className="th-content">
-                    {headKey}{' '}
-                    {configValue.useSort && (
-                      <div className="sort-table">
-                        <div
-                          className="sort-up"
-                          onClick={() => handleClickSort(headKey, 'asc')}
-                        />
-                        <div
-                          className="sort-down"
-                          onClick={() => handleClickSort(headKey, 'desc')}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {map(data, (dataValue, index) => {
-              return (
-                <tr key={`body-tr-${index}`} data-tr={index}>
-                  {map(config, (config, bodyKey) => (
-                    <td key={`td-${bodyKey}`} data-td={bodyKey}>
-                      <div className="td-content">
-                        {config.render
-                          ? config.render(
-                              renderData(dataValue, config.propData)
-                            )
-                          : '-'}
-                      </div>
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                {map(config, (configValue, headKey) => (
+                  <th key={`th-${headKey}`}>
+                    <div className="th-content">
+                      {headKey}{' '}
+                      {configValue.useSort && (
+                        <div className="sort-table">
+                          <div
+                            className="sort-up"
+                            onClick={() => handleClickSort(headKey, 'asc')}
+                          />
+                          <div
+                            className="sort-down"
+                            onClick={() => handleClickSort(headKey, 'desc')}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {map(data, (dataValue, index) => {
+                return (
+                  <tr key={`body-tr-${index}`} data-tr={index}>
+                    {map(config, (config, bodyKey) => (
+                      <td key={`td-${bodyKey}`} data-td={bodyKey}>
+                        <div className="td-content">
+                          {config.render
+                            ? config.render(
+                                renderData(dataValue, config.propData)
+                              )
+                            : '-'}
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="dashboard-pagination">
         <button
